@@ -1,6 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common'
 import {
   ConnectedSocket,
+  MessageBody,
   OnGatewayConnection,
   OnGatewayDisconnect,
   OnGatewayInit,
@@ -42,5 +43,17 @@ export class SwitchGateway
   switchOff() {
     this.server.emit('switch', 'off')
     this.logger.log('switch off')
+  }
+
+  @SubscribeMessage('return_state')
+  handleReturnState(@MessageBody() state: 0 | 1) {
+    this.server.emit('client_state_return', state)
+    this.logger.log(`client state return: ${state}`)
+  }
+
+  @SubscribeMessage('client_request_state')
+  handleClientStateRequest() {
+    this.server.emit('request_state')
+    this.logger.log('client state request')
   }
 }
