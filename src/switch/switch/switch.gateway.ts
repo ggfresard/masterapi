@@ -11,7 +11,7 @@ import {
 import { Server, Socket } from 'socket.io'
 
 @Injectable()
-@WebSocketGateway(80, {
+@WebSocketGateway({
   cors: {
     origin: '*'
   }
