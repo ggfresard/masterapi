@@ -3,6 +3,7 @@ import { AppController } from './app.controller'
 import { SwitchModule } from './switch/switch.module'
 import { WhatsappModule } from './whatsapp/whatsapp.module'
 import { ConfigModule } from '@nestjs/config'
+import { HelperModule } from './helper/helper.module';
 
 @Module({
   imports: [
@@ -10,7 +11,8 @@ import { ConfigModule } from '@nestjs/config'
       isGlobal: true
     }),
     SwitchModule,
-    WhatsappModule
+    WhatsappModule,
+    HelperModule
   ],
   controllers: [AppController]
 })

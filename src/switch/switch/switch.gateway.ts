@@ -32,7 +32,7 @@ export class SwitchGateway
   }
 
   afterInit() {
-    console.log('GameGateway initialized')
+    this.logger.log('GameGateway initialized')
   }
 
   switchOn() {

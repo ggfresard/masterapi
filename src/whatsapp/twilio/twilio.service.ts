@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { Injectable, Logger } from '@nestjs/common'
 import { Twilio } from 'twilio'
 import TwilioConfig from './twilio.configuration'
 
@@ -6,16 +6,23 @@ import TwilioConfig from './twilio.configuration'
 export class TwilioService {
   private twilioClient: import('twilio/lib/rest/Twilio')
 
-  constructor() {
-    const { accountSid, authToken } = TwilioConfig
-    this.twilioClient = new Twilio(accountSid, authToken)
+  private logger = new Logger('TwilioService')
+
+  constructor(private readonly twilioConfig: TwilioConfig) {
+    this.twilioClient = new Twilio(
+      twilioConfig.getAccountSID(),
+      twilioConfig.getAuthToken()
+    )
   }
 
   public async sendWhatsappMessage(message: string, to: string) {
+    const from = this.twilioConfig.getWhatsappPhoneNumber()
+    this.logger.log(`Sending message from ${from} to ${to}`)
+
     await this.twilioClient.messages
       .create({
         body: message,
-        from: `whatsapp:+14155238886`,
+        from,
         to: `whatsapp:${to}`
       })
       .then((message) => console.log(message.sid))

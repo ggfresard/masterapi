@@ -1,7 +1,7 @@
 import { Controller, Logger, Post, Body } from '@nestjs/common'
 
 @Controller('whatsapp/webhook')
-export class WhatsappController {
+export class TwilioController {
   private logger = new Logger('WhatsappController')
 
   @Post('newmessage')

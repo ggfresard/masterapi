@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common'
 import { TwilioService } from './twilio.service'
-import { WhatsappController } from './twilio.controller'
+import { TwilioController } from './twilio.controller'
+import TwilioConfig from './twilio.configuration'
 
 @Module({
-  providers: [TwilioService],
-  controllers: [WhatsappController],
+  providers: [TwilioService, TwilioConfig],
+  controllers: [TwilioController],
   exports: [TwilioService]
 })
 export class TwilioModule {}
